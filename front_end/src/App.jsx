@@ -5,7 +5,7 @@ import Left from './home/left/Left'
 
 const App = () => {
   return (
-    <div className='flex '>
+    <div className="flex h-screen bg-gradient-to-r from from-indigo-500 to-teal-400">
       <Left/>
       <Rigth/>
     
@@ -14,3 +14,5 @@ const App = () => {
 }
 
 export default App
+
+
