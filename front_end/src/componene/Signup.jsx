@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form" //react-hook-form import
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-
+//react-hook-form setup
    const {
     register,
     handleSubmit,
@@ -363,7 +363,7 @@ const Signup = () => {
 
             {/* Signup Button */}
             <button
-              type="submit"
+              type="submit" //</form> to submit the form data when clicked
               className="
                 w-full
                 rounded-xl
