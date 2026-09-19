@@ -13,7 +13,7 @@ const App = () => {
     
     // </div>
     <div>
-      {/* <Signup/> */}
+      <Signup/>
       <Login/>
     </div>
   )

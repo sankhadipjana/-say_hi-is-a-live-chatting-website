@@ -1,8 +1,28 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form"
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+
+   const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
+  //watch password
+  const password = watch("password", "");
+  const confirmPassword = watch("confirmPassword", "");
+
+  const validatePasswordMatch = (value) => {
+    return value === password || "Passwords do not match";
+  };
+  const onSubmit = (data) => console.log(data)
+
+
+ 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-blue-500 to-teal-400 flex items-center justify-center px-4 py-8">
@@ -91,7 +111,7 @@ const Signup = () => {
 
 
           {/* Form */}
-          <form className="relative space-y-4">
+          <form className="relative space-y-4" onSubmit={handleSubmit(onSubmit)}>
 
 
             {/* Full Name */}
@@ -110,6 +130,7 @@ const Signup = () => {
                 </span>
 
                 <input
+                  {...register("full name", { required: true })}
                   type="text"
                   placeholder="Enter your full name"
                   className="
@@ -133,7 +154,10 @@ const Signup = () => {
                   "
                 />
 
+
               </div>
+              {errors["full name"] && <span>Full Name is required</span>}
+                
             </div>
 
 
@@ -153,6 +177,7 @@ const Signup = () => {
                 </span>
 
                 <input
+                  {...register("email", { required: true })}
                   type="email"
                   placeholder="Enter your email"
                   className="
@@ -177,6 +202,7 @@ const Signup = () => {
                 />
 
               </div>
+              {errors["email"] && <span>Email is required</span>}
             </div>
 
 
@@ -197,6 +223,7 @@ const Signup = () => {
                 </span>
 
                 <input
+                  {...register("password", { required: true ,})}
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a password"
                   className="
@@ -237,6 +264,7 @@ const Signup = () => {
                 </button>
 
               </div>
+              {errors["password"] && <span>Password is required</span>}
             </div>
 
 
@@ -256,6 +284,7 @@ const Signup = () => {
                 </span>
 
                 <input
+                  {...register("confirmPassword", { required: true,validate: validatePasswordMatch })}
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm your password"
                   className="
@@ -298,7 +327,10 @@ const Signup = () => {
                 </button>
 
               </div>
+              {errors.confirmPassword && <span>Confirm Password is required{errors.confirmPassword.message}</span>}
+              
             </div>
+            
 
 
             {/* Terms */}
@@ -383,4 +415,5 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+
+export default Signup
