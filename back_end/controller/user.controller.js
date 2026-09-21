@@ -17,9 +17,8 @@ export const signup = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (user) {
-            return res.status(400).json({
-                error: "User already exists"
-            });
+            
+        return res.status(400).json({error: "User already exists"});
         }
         // has password
         const hasPassword = await bcrypt.hash(password,10)
@@ -36,7 +35,12 @@ export const signup = async (req, res) => {
         if(newUser){    
          genarateToken(newUser._id,res)
         return res.status(201).json({
-            message: "User created successfully",newUser
+            message: "User created successfully",newUser:{
+                id:newUser._id,
+                fullname:newUser.fullname,
+                email:newUser.email,
+
+            }
         });
         }
 

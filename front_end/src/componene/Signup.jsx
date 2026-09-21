@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form" //react-hook-form import
-
+import axios from "axios" //axios import
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -11,7 +11,7 @@ const Signup = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm()
+  } = useForm()  
   //watch password
   const password = watch("password", "");
   const confirmPassword = watch("confirmPassword", "");
@@ -19,7 +19,29 @@ const Signup = () => {
   const validatePasswordMatch = (value) => {
     return value === password || "Passwords do not match";
   };
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => {
+      const userData = {
+        fullname: data.fullname,
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+      };
+    
+    axios.post("http://localhost:3000/api/users/signup",userData)
+   .then((response) =>{
+      if (response.data){
+        alert("Signup successful")
+      }
+      localStorage.setItem("user",JSON.stringify(response.data))
+      console.log(response.data)
+  })
+  .catch((error) =>{
+    if(error.response){
+      alert(error.response.data.error)
+  }
+  })
+
+  }
 
 
  
@@ -130,7 +152,7 @@ const Signup = () => {
                 </span>
 
                 <input
-                  {...register("full name", { required: true })}
+                  {...register("fullname", { required: true })}
                   type="text"
                   placeholder="Enter your full name"
                   className="
@@ -156,7 +178,7 @@ const Signup = () => {
 
 
               </div>
-              {errors["full name"] && <span>Full Name is required</span>}
+              {errors["fullname"] && <span>Full Name is required</span>}
                 
             </div>
 
@@ -327,7 +349,7 @@ const Signup = () => {
                 </button>
 
               </div>
-              {errors.confirmPassword && <span>Confirm Password is required{errors.confirmPassword.message}</span>}
+              {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
               
             </div>
             

@@ -14,7 +14,7 @@ const App = () => {
     // </div>
     <div>
       <Signup/>
-      <Login/>
+      {/* <Login/> */}
     </div>
   )
 }
