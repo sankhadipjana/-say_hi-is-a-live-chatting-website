@@ -1,7 +1,40 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
+
+     const [showPassword, setShowPassword] = useState(false);
+   const {
+      register,
+      handleSubmit,
+      watch,
+      formState: { errors },
+    } = useForm()  
+
+
+    const onSubmit = (data) => {
+      const userData = {
+
+        email: data.email,
+        password: data.password,
+      };
+    
+    axios.post("http://localhost:3000/api/users/login",userData)
+   .then((response) =>{
+      if (response.data){
+        alert("Login successful")
+      }
+      localStorage.setItem("user",JSON.stringify(response.data))
+      console.log(response.data)
+  })
+  .catch((error) =>{
+    if(error.response){
+      alert(error.response.data.error)
+  }
+  })
+
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-blue-500 to-teal-400 flex items-center justify-center px-4 py-8">
@@ -103,7 +136,7 @@ const Login = () => {
 
 
           {/* Login Form */}
-          <form className="relative space-y-5">
+          <form className="relative space-y-5" onSubmit={handleSubmit(onSubmit)}>
 
 
             {/* Email */}
@@ -124,7 +157,8 @@ const Login = () => {
                   ✉️
                 </span>
 
-                <input
+                <input 
+                  {...register("email", { required: true })}
                   type="email"
                   placeholder="Enter your email"
                   className="
@@ -149,6 +183,7 @@ const Login = () => {
                 />
 
               </div>
+              {errors["email"] && <span>Email is required</span>}
 
             </div>
 
@@ -178,6 +213,7 @@ const Login = () => {
                 </span>
 
                 <input
+                  {...register("password", { required: true })}
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   className="
@@ -219,6 +255,7 @@ const Login = () => {
                 </button>
 
               </div>
+              {errors["password"] && <span>Password is required</span>}
 
             </div>
 
