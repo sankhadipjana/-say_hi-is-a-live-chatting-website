@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useAuth } from "../context/authprovider";
+import { Link } from "react-router-dom"; //import Link from react-router-dom
 
 const Login = () => {
+    const [AuthUser, setAuthUser] = useAuth();
+  
 
      const [showPassword, setShowPassword] = useState(false);
    const {
@@ -27,6 +31,8 @@ const Login = () => {
       }
       localStorage.setItem("user",JSON.stringify(response.data))
       console.log(response.data)
+      setAuthUser(response.data)
+
   })
   .catch((error) =>{
     if(error.response){
@@ -311,7 +317,8 @@ const Login = () => {
 
               Don't have an account?{" "}
 
-              <button
+              <Link
+                navigate to="/signup"
                 type="button"
                 className="
                   font-semibold
@@ -321,7 +328,7 @@ const Login = () => {
                 "
               >
                 Create Account
-              </button>
+              </Link>
 
             </p>
 

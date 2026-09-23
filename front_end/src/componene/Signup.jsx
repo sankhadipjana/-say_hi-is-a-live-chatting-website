@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form" //react-hook-form import
 import axios from "axios" //axios import
 import {useAuth}  from "../context/authprovider" //import useAuth from authprovider
+import { Link } from "react-router-dom"; //import Link from react-router-dom
 const Signup = () => {
 
   const [AuthUser, setAuthUser] = useAuth();
@@ -419,7 +420,8 @@ const Signup = () => {
 
               Already have an account?{" "}
 
-              <button
+              <Link
+                to = "/login"
                 type="button"
                 className="
                   font-semibold
@@ -429,7 +431,7 @@ const Signup = () => {
                 "
               >
                 Login
-              </button>
+              </Link>
 
             </p>
 
