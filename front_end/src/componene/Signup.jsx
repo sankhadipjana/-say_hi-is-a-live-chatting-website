@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form" //react-hook-form import
 import axios from "axios" //axios import
+import {useAuth}  from "../context/authprovider" //import useAuth from authprovider
 const Signup = () => {
+
+  const [AuthUser, setAuthUser] = useAuth();
+
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -19,7 +24,7 @@ const Signup = () => {
   const validatePasswordMatch = (value) => {
     return value === password || "Passwords do not match";
   };
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
       const userData = {
         fullname: data.fullname,
         email: data.email,
@@ -27,13 +32,14 @@ const Signup = () => {
         confirmPassword: data.confirmPassword,
       };
     
-    axios.post("http://localhost:3000/api/users/signup",userData)
+      await axios.post("http://localhost:3000/api/users/signup",userData)
    .then((response) =>{
       if (response.data){
         alert("Signup successful")
       }
       localStorage.setItem("user",JSON.stringify(response.data))
       console.log(response.data)
+      setAuthUser(response.data)
   })
   .catch((error) =>{
     if(error.response){

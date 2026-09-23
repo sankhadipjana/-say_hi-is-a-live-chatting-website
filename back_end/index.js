@@ -5,12 +5,14 @@ import route from "./routes/user.route.js"
 import cors from "cors"
 
 const app = express()
-app.use(cors());
+
 dotenv.config();
 const PORT  = process.env.PORT || 4000
 
 
 app.use(express.json());     /// parce the data in json format
+app.use(cors({ credentials: true, origin: "http://localhost:5173" })); // Enable CORS for requests from localhost:5173 frontend
+
 app.use("/api/users", route);
 
 
