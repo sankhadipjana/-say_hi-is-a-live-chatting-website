@@ -1,10 +1,15 @@
 import React from 'react'
 import User from './User'
 import { CiSearch } from "react-icons/ci";
+import useGetallUsers from '../../context/useGetallusers';
+
+
 
 
 
 const Users = () => {
+  const [AllUsers, loading] = useGetallUsers();
+  console.log(AllUsers)
   return (
     <div className=''>
       <div>
@@ -20,22 +25,13 @@ const Users = () => {
       
       
 
-      <div className=' py-2 overflow-y-auto ' style = {{maxHeight:'calc(82vh - 10vh)'}}>  {/* scroll effecft  86 for user space ans 10 for each search and login*/}
-        <User/>
-        <User/>
-        <User/>
-        <User/>
-        <User/>
-        <User/>
-        <User/>
-        <User/>
-        <User/>
-        <User/>
-        <User/>
-        <User/>
-        <User/>
-        <User/>
-        <User/>
+      <div className=' py-2 overflow-y-auto ' style = {{maxHeight:'calc(82vh - 10vh)'}}>  
+
+        {AllUsers.map((user,index)=>(
+          <User key = {index} user= {user}/>
+        ))}
+       
+      
 
       </div>
       

@@ -24,7 +24,7 @@ const Login = () => {
         password: data.password,
       };
     
-    axios.post("http://localhost:3000/api/users/login",userData)
+    axios.post("/api/users/login",userData)
    .then((response) =>{
       if (response.data){
         alert("Login successful")

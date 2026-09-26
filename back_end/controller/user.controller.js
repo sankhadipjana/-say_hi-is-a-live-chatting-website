@@ -104,3 +104,15 @@ export const logout  = async(req,res) => {
 }
 
 
+export const allUsers = async(req,res) => {
+    try{
+        const loginUserId = req.user._id;
+        const allusers  = await User.find({_id:{$ne:loginUserId}}).select("-password")
+        return res.status(202).json(allusers)
+    }catch(error){
+        console.log("All users error:", error)
+        return res.status(500).json(error)
+    }
+}
+
+

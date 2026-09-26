@@ -33,7 +33,7 @@ const Signup = () => {
         confirmPassword: data.confirmPassword,
       };
     
-      await axios.post("http://localhost:3000/api/users/signup",userData)
+      await axios.post("/api/users/signup",userData)
    .then((response) =>{
       if (response.data){
         alert("Signup successful")

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const User = () => {
+const User = ({user}) => {
   return (
     <div>
         <div className='flex space-x-4 px-2 py-2 rounded-2xl hover:bg-gradient-to-r border-white
@@ -14,8 +14,8 @@ hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(59,130,246,0.6),0_0_60
   </div>
 </div>
 <div>
-    <h1 className='font-bold text-white '>sankha</h1>
-    <span>sankha@gmail.com</span>
+    <h1 className='font-bold text-white '>{user.fullname}</h1>
+    <span>{user.email}</span>
 </div>
 </div>
       

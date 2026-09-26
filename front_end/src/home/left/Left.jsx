@@ -7,7 +7,9 @@ const Left = () => {
   return (
     <div className='w-[30%] borderm-4 border rounded-2xl m-4 bg-blue-950'>
       <Search/>
-      <Users/>
+      <div className=' py-2 overflow-y-auto ' style={{minHeight:"calc(88vh - 8vh"}}>
+                <Users/>
+                </div>
       <Logout/>
        
       
